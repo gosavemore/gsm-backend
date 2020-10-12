@@ -14,4 +14,4 @@ server.get("/", (req, res) => {
   res.json({ api: "Backend is running" });
 });
 
-module.exports = server;
+module.exports = server; 
