@@ -4,9 +4,9 @@ const ProductModel = require('../models/productsModel')
 
 const router = express.Router()
 
-router.route('/', (req, res) => {
+router.get('/', (req, res) => {
   ProductModel.find()
-    .then((res) => res.status(200).json(res))
+    .then((rev) => res.status(200).json(rev))
     .catch((err) => res.status(500).json({ err: err.message }))
 })
 

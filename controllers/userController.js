@@ -4,9 +4,9 @@ const UsersModel = require('../models/UsersModel')
 
 const router = express.Router()
 
-router.route('/', (req, res) => {
+router.get('/', (req, res) => {
   UsersModel.find()
-    .then((res) => res.status(200).json(res))
+    .then((rev) => res.status(200).json(rev))
     .catch((err) => res.status(500).json({ err: err.message }))
 })
 
