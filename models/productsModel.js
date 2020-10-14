@@ -2,6 +2,7 @@ const db = require('../data/db-config')
 
 module.exports = {
   find,
+  findByName,
   addProduct,
   deleteProduct,
   editProduct,
@@ -9,6 +10,10 @@ module.exports = {
 
 function find() {
   return db('products')
+}
+
+function findByName(productName) {
+  return 'products'.where({ productName }).first()
 }
 
 function addProduct(newProduct) {
@@ -19,6 +24,6 @@ function editProduct() {
   return db('products') // TBC
 }
 
-function deleteProduct(id) {
-  return db('products').delete(id) // where id=id
+function deleteProduct(productName) {
+  return db('products').where(productName).del() // where id=id
 }
