@@ -1,6 +1,7 @@
 const express = require('express')
-const router = express.router()
 const ShoppingCartModel = require('../models/shoppingCartModel')
+
+const router = express.Router()
 
 router.get('/', (req, res) => {
   ShoppingCartModel.getCart()
@@ -26,3 +27,5 @@ router.delete('/', (req, res) => {
     .then((cart) => res.status(200).json({ message: 'Shopping Cart Deleted' }))
     .catch((err) => res.status(500).json({ err: err.message }))
 })
+
+module.exports = router
