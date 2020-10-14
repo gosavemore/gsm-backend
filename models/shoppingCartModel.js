@@ -1,6 +1,6 @@
 const db = require('../data/db-config')
 
-module.exports {
+module.exports = {
   addToCart,
   editCart,
   getCart,
@@ -9,7 +9,7 @@ module.exports {
 }
 
 // TBC
-function addToCart(productName){
+function addToCart(productName) {
   return db('shoppingCart').insert(productName)
 }
 
@@ -22,11 +22,11 @@ function getCart() {
   return db('shoppingCart')
 }
 
-function deleteItem(productName){
+function deleteItem(productName) {
   return db('shoppingCart').where({ productName }).del().first()
 }
 
 // TBC
-function deleteCart(){
+function deleteCart() {
   return db('shoppingCart').del()
 }
