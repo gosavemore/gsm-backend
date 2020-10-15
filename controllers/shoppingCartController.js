@@ -1,31 +1,30 @@
-const express = require('express')
-const ShoppingCartModel = require('../models/shoppingCartModel')
+const express = require("express");
+const ShoppingCartModel = require("../models/shoppingCartModel");
+const ProductModel = require("../models/productsModel");
+const router = express.Router();
 
-const router = express.Router()
-
-router.get('/', (req, res) => {
+router.get("/", (req, res) => {
   ShoppingCartModel.getCart()
     .then((cart) => res.status(200).json(cart))
-    .catch((err) => res.status(500).json({ err: err.message }))
-})
+    .catch((err) => res.status(500).json({ err: err.message }));
+});
 
 // add
-router.post('/:username', (req, res) => {
-  const { product } = req.body
-  const { username } = req.params
-  ShoppingCartModel.addToCart(product)
-    .then((item) => res.status(200).json(product))
-    .catch((err) => res.status(500).json({ err: err.message }))
-})
+router.post("/:productName", async (req, res) => {
+  const { productName } = req.params;
+
+  let productDetails = await ProductModel.findByName({ productName });
+
+  let shoppingCart = await ShoppingCartModel.addToCart(productDetails);
+
+  res.status(200).json({ message: `product added ${shoppingCart}` });
+});
 
 // editCart
-router.router // deleteCart // deleteItem
-  .delete('/', (req, res) => {
-    ShoppingController.deleteCart()
-      .then((cart) =>
-        res.status(200).json({ message: 'Shopping Cart Deleted' })
-      )
-      .catch((err) => res.status(500).json({ err: err.message }))
-  })
+// router.delete("/", (req, res) => {
+//   ShoppingController.deleteCart()
+//     .then((cart) => res.status(200).json({ message: "Shopping Cart Deleted" }))
+//     .catch((err) => res.status(500).json({ err: err.message }));
+// });
 
-module.exports = router
+module.exports = router;
