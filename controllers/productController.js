@@ -44,20 +44,11 @@ router.put('/:productName', async (req, res) => {
   } catch(err) {
     res.status(400).json(err)
   }
-
-  // if (!productName) {
-  //   res.status(404).json({ message: 'That user does not exist.' })
-  // } else {
-  //   const changes = req.body
-  //   ProductModel.editProduct({ productName }, changes)
-  //     .then((product) => res.status(200).json({ product }))
-  //     .catch((err) => res.status(500).json({ err: err.message }))
-  // }
 })
 
 router.delete('/:productName', (req, res) => {
   const { productName } = req.params
-  ProductModel.deleteProduct(productName)
+  ProductModel.deleteProduct({productName})
     .then(del => res.status(200).json({ msg: 'Product deleted' }))
     .catch(err => res.status(500).json({ err: err.message }))
 })

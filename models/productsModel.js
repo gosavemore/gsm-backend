@@ -25,5 +25,5 @@ function editProduct(productName, data) {
 }
 
 function deleteProduct(productName) {
-  return db('products').where({productName}).del() // where id=id
+  return db('products').where(productName).del() // where id=id
 }
