@@ -19,7 +19,7 @@ router.post('/:username', (req, res) => {
 })
 
 // editCart
-router.router // deleteCart // deleteItem
+router // deleteCart // deleteItem
   .delete('/', (req, res) => {
     ShoppingController.deleteCart()
       .then((cart) =>
