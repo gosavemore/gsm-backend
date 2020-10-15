@@ -13,17 +13,17 @@ function find() {
 }
 
 function findByName(productName) {
-  return 'products'.where({ productName }).first()
+  return db('products').where(productName).first()
 }
 
 function addProduct(newProduct) {
   return db('products').insert(newProduct)
 }
 
-function editProduct() {
-  return db('products') // TBC
+function editProduct(productName, data) {
+  return db('products').where(productName).update(data) // TBC
 }
 
 function deleteProduct(productName) {
-  return db('products').where(productName).del() // where id=id
+  return db('products').where({productName}).del() // where id=id
 }
