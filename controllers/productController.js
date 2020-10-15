@@ -13,13 +13,13 @@ router.get('/:productName', (req, res) => {
   const productName = req.params
   ProductModel.findByName(productName)
     .then((name) => {
-      res.status(200).json(name);
+      res.status(200).json(name)
       console.log(name)
     })
     .catch((err) => res.status(500).json({ err: err.message }))
 })
 
-router.post('/', (req, res) => {
+router.post('/addProduct', (req, res) => {
   const newProduct = req.body
   ProductModel.addProduct(newProduct)
     .then((product) => res.status(200).json(product))
@@ -28,29 +28,28 @@ router.post('/', (req, res) => {
 
 router.put('/:productName', async (req, res) => {
   const { productName } = req.params
-  
+
   try {
-    let searchResult = await ProductModel.findByName({ productName });
-    
-    if(!searchResult) {
+    let searchResult = await ProductModel.findByName({ productName })
+
+    if (!searchResult) {
       res.status(404).json({ message: 'That user does not exist.' })
     } else {
       const changes = req.body
       const updated = await ProductModel.editProduct(searchResult, changes)
 
-      res.status(200).json({updated});
-      
+      res.status(200).json({ updated })
     }
-  } catch(err) {
+  } catch (err) {
     res.status(400).json(err)
   }
 })
 
 router.delete('/:productName', (req, res) => {
   const { productName } = req.params
-  ProductModel.deleteProduct({productName})
-    .then(del => res.status(200).json({ msg: 'Product deleted' }))
-    .catch(err => res.status(500).json({ err: err.message }))
+  ProductModel.deleteProduct({ productName })
+    .then((del) => res.status(200).json({ msg: 'Product deleted' }))
+    .catch((err) => res.status(500).json({ err: err.message }))
 })
 
 module.exports = router

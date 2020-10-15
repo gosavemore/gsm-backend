@@ -1,13 +1,12 @@
 const express = require('express')
 
-const adminModel = require('../models/adminModel')
+const AdminModel = require('../models/adminModel')
 
 const router = express.Router()
 
-// get users
+// Get All Users
 router.get('/', (req, res) => {
-  adminModel
-    .getUsers()
+  AdminModel.getUsers()
     .then((user) => res.status(200).json(user))
     .catch((err) => res.status(500).json({ err: err.message }))
 })
@@ -16,7 +15,7 @@ router.get('/', (req, res) => {
 router.get('/:username', (req, res) => {
   let { username } = req.params
   console.log(username)
-  UsersModel.findUser({ username }).then((userData) => {
+  AdminModel.findUser({ username }).then((userData) => {
     const user = userData[0]
     res.status(200).json({
       username: user.username,
@@ -32,7 +31,5 @@ router.get('/:username', (req, res) => {
     })
   })
 })
-
-// edit products add etc
 
 module.exports = router
