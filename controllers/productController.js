@@ -1,5 +1,4 @@
 const express = require('express')
-
 const ProductModel = require('../models/productsModel')
 
 const router = express.Router()
@@ -22,19 +21,25 @@ router.get('/:productName', (req, res) => {
 
 router.post('/addProduct', (req, res) => {
   const newProduct = req.body
-  ProductModel.addProduct(newProduct)
+  const data = {
+    ...newProduct,
+    productName: newProduct.productName.toLowerCase(),
+  }
+
+  ProductModel.addProduct(data)
     .then((product) => res.status(200).json(product))
     .catch((err) => res.status(500).json({ err: err.message }))
 })
 
 router.put('/:productName', async (req, res) => {
-  const { productName } = req.params
+  let { productName } = req.params
+  productName = productName.toLowerCase()
 
   try {
-    let searchResult = await ProductModel.findByName({ productName })
+    let searchResult = await ProductModel.findByName(productName)
 
     if (!searchResult) {
-      res.status(404).json({ message: 'That user does not exist.' })
+      res.status(404).json({ message: 'That product does not exist.' })
     } else {
       const changes = req.body
       const updated = await ProductModel.editProduct(searchResult, changes)
