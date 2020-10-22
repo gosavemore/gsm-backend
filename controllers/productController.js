@@ -1,55 +1,61 @@
-const express = require('express')
-const ProductModel = require('../models/productsModel')
+const express = require("express");
+const ProductModel = require("../models/productsModel");
 
-const router = express.Router()
+const router = express.Router();
 
-router.get('/', (req, res) => {
+router.get("/", (req, res) => {
   ProductModel.find()
     .then((rev) => res.status(200).json(rev))
-    .catch((err) => res.status(500).json({ err: err.message }))
-})
+    .catch((err) => res.status(500).json({ err: err.message }));
+});
 
-router.get('/:productName', (req, res) => {
-  const productName = req.params
+router.get("/:productName", (req, res) => {
+  const productName = req.params;
   ProductModel.findByName(productName)
     .then((name) => {
-      res.status(200).json(name)
-      console.log(name)
+      res.status(200).json(name);
+      console.log(name);
     })
-    .catch((err) => res.status(500).json({ err: err.message }))
-})
+    .catch((err) => res.status(500).json({ err: err.message }));
+});
 
-router.post('/addProduct', (req, res) => {
-  const newProduct = req.body
-  ProductModel.addProduct(newProduct)
+router.post("/addProduct", (req, res) => {
+  const newProduct = req.body;
+  const data = {
+    ...newProduct,
+    productName: newProduct.productName.toLowerCase(),
+  };
+
+  ProductModel.addProduct(data)
     .then((product) => res.status(200).json(product))
-    .catch((err) => res.status(500).json({ err: err.message }))
-})
+    .catch((err) => res.status(500).json({ err: err.message }));
+});
 
-router.put('/:productName', async (req, res) => {
-  const { productName } = req.params
+router.put("/:productName", async (req, res) => {
+  const { productName } = req.params;
+  productName = productName.toLowerCase();
 
   try {
-    let searchResult = await ProductModel.findByName({ productName })
+    let searchResult = await ProductModel.findByName({ productName });
 
     if (!searchResult) {
-      res.status(404).json({ message: 'That user does not exist.' })
+      res.status(404).json({ message: "That product does not exist." });
     } else {
-      const changes = req.body
-      const updated = await ProductModel.editProduct(searchResult, changes)
+      const changes = req.body;
+      const updated = await ProductModel.editProduct(searchResult, changes);
 
-      res.status(200).json({ updated })
+      res.status(200).json({ updated });
     }
   } catch (err) {
-    res.status(400).json(err)
+    res.status(400).json(err);
   }
-})
+});
 
-router.delete('/:productName', (req, res) => {
-  const { productName } = req.params
+router.delete("/:productName", (req, res) => {
+  const { productName } = req.params;
   ProductModel.deleteProduct({ productName })
-    .then((del) => res.status(200).json({ msg: 'Product deleted' }))
-    .catch((err) => res.status(500).json({ err: err.message }))
-})
+    .then((del) => res.status(200).json({ msg: "Product deleted" }))
+    .catch((err) => res.status(500).json({ err: err.message }));
+});
 
-module.exports = router
+module.exports = router;
