@@ -21,9 +21,11 @@ router.get('/:productName', (req, res) => {
 
 router.post('/addProduct', (req, res) => {
   const newProduct = req.body
+  console.log('req::::', req)
   const data = {
     ...newProduct,
     productName: newProduct.productName.toLowerCase(),
+    hashedValue: newProduct.productName.hashedValue,
   }
 
   ProductModel.addProduct(data)
