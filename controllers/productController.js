@@ -32,11 +32,11 @@ router.post("/addProduct", (req, res) => {
 });
 
 router.put("/:productName", async (req, res) => {
-  const { productName } = req.params;
+  let { productName } = req.params;
   productName = productName.toLowerCase();
 
   try {
-    let searchResult = await ProductModel.findByName({ productName });
+    let searchResult = await ProductModel.findByName(productName);
 
     if (!searchResult) {
       res.status(404).json({ message: "That product does not exist." });
