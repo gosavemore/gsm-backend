@@ -13,7 +13,7 @@ server.use(express.json());
 
 // Routes
 server.use("/products", productsRouter);
-server.use("/admin", adminRouter); // CRUD function admin previledge
+server.use("/admin", adminRouter); // RUD function admin previledge
 server.use("/shoppingCart", shoppingCartRouter);
 server.use("/auth", authRouter); // registration and login
 server.get("/", (req, res) => {

@@ -17,6 +17,7 @@ exports.seed = function (knex) {
           zip: 999,
           state: "FL",
           country: "USA",
+          isAdmin: true,
         },
       ]);
     });

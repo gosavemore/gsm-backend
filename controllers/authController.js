@@ -48,7 +48,7 @@ function generateToken(user) {
 router.post("/register", async (req, res) => {
   try {
     const hashedPassword = await bcrypt.hash(req.body.password, 10);
-    console.log("hashedPassword", hashedPassword);
+
     let data = {
       ...req.body,
       password: hashedPassword,

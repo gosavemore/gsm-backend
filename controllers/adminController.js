@@ -1,24 +1,24 @@
-const express = require('express')
+const express = require("express");
 
-const AdminModel = require('../models/adminModel')
+const AdminModel = require("../models/adminModel");
 
-const router = express.Router()
+const router = express.Router();
 
 // Get All Users
-router.get('/', (req, res) => {
+router.get("/", (req, res) => {
   AdminModel.getUsers()
     .then((user) => res.status(200).json(user))
-    .catch((err) => res.status(500).json({ err: err.message }))
-})
+    .catch((err) => res.status(500).json({ err: err.message }));
+});
 
 // find user
-router.get('/:username', (req, res) => {
-  let { username } = req.params
-  console.log(username)
+router.get("/:username", (req, res) => {
+  let { username } = req.params;
+  console.log("this is the username", username);
   AdminModel.findUser({ username }).then((userData) => {
-    const user = userData[0]
-    res.status(200).json({ user })
-  })
-})
+    const user = userData[0];
+    res.status(200).json({ user });
+  });
+});
 
-module.exports = router
+module.exports = router;

@@ -1,17 +1,21 @@
-
-exports.seed = function(knex) {
+exports.seed = function (knex) {
   // Deletes ALL existing entries
-  return knex('products').del()
+  return knex("products")
+    .del()
     .then(function () {
       // Inserts seed entries
-      return knex('products').insert([
+      return knex("products").insert([
         {
-          productName: 'Soda',
+          productName: "soda",
+          image: "https://via.placeholder.com/150",
+          brand: "coca cola",
           price: "25",
           shortDescription: "I pretty much awesome soda for you!",
           description: "Soda is good for your diabetes",
-          stock: 10
-        }
+          ratings: 5,
+          stock: 10,
+          category: "Drinks",
+        },
       ]);
     });
 };
