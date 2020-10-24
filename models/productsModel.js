@@ -13,7 +13,7 @@ function find() {
 }
 
 function findByName(productName) {
-  return db('products').where({productName}).first()
+  return db('products').where({ productName }).first()
 }
 
 function addProduct(newProduct) {
