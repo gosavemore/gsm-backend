@@ -10,25 +10,25 @@ module.exports = {
 };
 
 function find() {
-  return db("products");
+  return db("product");
 }
 
 function findByName(productName) {
-  return db("products").where({ productName }).first();
+  return db("product").where({ productName }).first();
 }
 
 function findById(id) {
-  return db("products").where(id).first();
+  return db("product").where(id).first();
 }
 
 function addProduct(newProduct) {
-  return db("products").insert(newProduct);
+  return db("product").insert(newProduct);
 }
 
 function editProduct(product, data) {
-  return db("products").where(product).update(data); // TBC
+  return db("product").where(product).update(data); // TBC
 }
 
 function deleteProduct(product) {
-  return db("products").where(product).del(); // where id=id
+  return db("product").where(product).del(); // where id=id
 }
