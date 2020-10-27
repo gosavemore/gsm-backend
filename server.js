@@ -4,6 +4,7 @@ const helmet = require("helmet");
 const productsRouter = require("./controllers/productController");
 const adminRouter = require("./controllers/adminController");
 const authRouter = require("./controllers/authController.js");
+const cartRouter = require("./controllers/cartController.js");
 const orderRouter = require("./controllers/orderController");
 const server = express();
 
@@ -15,7 +16,8 @@ server.use(express.json());
 server.use("/products", productsRouter);
 server.use("/admin", adminRouter); // RUD function admin previledge
 server.use("/auth", authRouter); // registration and login
-server.use("/orders", orderRouter); // orders
+server.use("/cart", cartRouter); // orders
+server.use("/orders", orderRouter);
 server.get("/", (req, res) => {
   res.json({ api: "Backend is running" });
 });

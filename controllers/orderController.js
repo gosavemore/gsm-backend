@@ -1,30 +1,22 @@
 const router = require("express").Router();
 const OrderModel = require("../models/orderModel");
 
-router.get("/", (req, res) => {
-  OrderModel.find()
-    .then((orders) => {
-      res.status(200).json(orders);
-    })
-    .catch((err) => res.status(500).json({ err: err.message }));
-});
-
-router.get("/:id", (req, res) => {
-  let userId = req.params.id;
-  OrderModel.getUser(userId)
-    .then((orders) => {
-      res.status(200).json(orders);
-    })
-    .catch((err) => res.status(400).json({ message: err.message }));
-});
-
 router.post("/", (req, res) => {
-  const order = req.body;
-  OrderModel.addOrder(order)
+  let data = req.body;
+
+  OrderModel.addOrder(data)
+    .then((order) => res.status(200).json({ message: `added order ${order}` }))
+    .catch((err) => res.status(400).json());
+});
+
+// user id
+router.get("/:id", (req, res) => {
+  let { id } = req.params;
+  OrderModel.getOrders(id)
     .then((order) => {
-      res.status(200).json({ message: `Order is added ${order}` });
+      res.status(200).json(order);
     })
-    .catch((err) => res.status(400).json({ err: err.message }));
+    .catch((err) => res.status(400).json({ err }));
 });
 
 module.exports = router;
