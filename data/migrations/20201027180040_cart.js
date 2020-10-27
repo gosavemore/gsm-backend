@@ -22,22 +22,12 @@ exports.up = function (knex) {
       .inTable("product")
       .onDelete("CASCADE")
       .onUpdate("CASCADE");
-
-    cart.timestamps(true, true);
+    cart.boolean("savedForLater", true);
     cart.integer("quantity").notNullable();
-
-    cart.boolean("isPaid").notNullable();
+    cart.timestamps(true, true);
   });
 };
 
 exports.down = function (knex) {
   return knex.schema.dropTableIfExists("cart");
 };
-
-/**
- * order.integer("itemsPrice").notNullable();
-    order.integer("shippingPrice").notNullable();
-    order.integer("taxPrice").notNullable();
-    order.integer("totalPrice").notNullable();
-    order.string("paymentMethod", 256).notNullable();
- */

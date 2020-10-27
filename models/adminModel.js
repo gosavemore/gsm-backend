@@ -7,11 +7,11 @@ module.exports = {
 };
 
 function getUsers() {
-  return db("user"); //.select("id", "username", "firstName", "lastName")
+  return db("user").join("address"); //.select("id", "username", "firstName", "lastName")
 }
 
 function findUser(username) {
-  return db("user").where(username);
+  return db("user").join("address").where(username);
 }
 
 function addUser(data) {

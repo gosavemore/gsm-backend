@@ -11,13 +11,7 @@ exports.seed = function (knex) {
           password: "1234admin",
           firstName: "gosave",
           lastName: "more",
-          houseNumber: "123 house",
-          streetName: "main street",
-          city: "somewhere",
-          zip: 999,
-          state: "FL",
-          country: "USA",
-          isAdmin: true,
+          isAdmin: false,
         },
       ]);
     });

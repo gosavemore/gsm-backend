@@ -6,12 +6,6 @@ exports.up = function (knex) {
     user.string("password", 256).notNullable();
     user.string("firstName", 256).notNullable();
     user.string("lastName", 256).notNullable();
-    user.string("houseNumber", 256).notNullable();
-    user.string("streetName", 256).notNullable();
-    user.string("city", 256).notNullable();
-    user.integer("zip", 256).notNullable();
-    user.string("state", 256).notNullable();
-    user.string("country", 256).notNullable();
     user.boolean("isAdmin", false).notNullable();
     user.timestamps(true, true);
   });

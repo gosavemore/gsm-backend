@@ -12,13 +12,14 @@ router.get("/", (req, res) => {
 });
 
 // find user
-router.get("/:username", (req, res) => {
-  let { username } = req.params;
-  console.log("this is the username", username);
-  AdminModel.findUser({ username }).then((userData) => {
-    const user = userData[0];
-    res.status(200).json({ user });
-  });
+router.get("/:id", (req, res) => {
+  let { id } = req.params;
+  AdminModel.findUser({ id })
+    .then((userData) => {
+      const user = userData[0];
+      res.status(200).json({ user });
+    })
+    .catch((err) => res.status(400).json(err.message));
 });
 
 module.exports = router;
