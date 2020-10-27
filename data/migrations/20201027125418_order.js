@@ -3,33 +3,22 @@ exports.up = function (knex) {
     // primary key
     order.increments().primary();
 
-    // user_id foreign key
+    // // foreign key
     order
-      .integer("user_id")
+      .integer("cart_id")
       .unsigned()
       .notNullable()
       .references("id")
-      .inTable("user")
+      .inTable("cart")
       .onDelete("CASCADE")
       .onUpdate("CASCADE");
+    // order.specificType("orderList", "text ARRAY").references("cart_id");
 
-    // product_id foreign key
-    order
-      .integer("product_id")
-      .unsigned()
-      .notNullable()
-      .references("id")
-      .inTable("product")
-      .onDelete("CASCADE")
-      .onUpdate("CASCADE");
-
-    order.timestamps(true, true);
-    order.string("paymentMethod", 256).notNullable();
-    order.integer("quantity").notNullable();
-    order.integer("itemsPrice").notNullable();
     order.integer("shippingPrice").notNullable();
     order.integer("taxPrice").notNullable();
     order.integer("totalPrice").notNullable();
+    order.string("paymentMethod", 256).notNullable();
+    order.timestamps(true, true);
   });
 };
 

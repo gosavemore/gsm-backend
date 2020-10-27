@@ -1,59 +1,32 @@
 const db = require("../data/db-config");
 
 module.exports = {
+  getOrders,
   addOrder,
-  find,
-  findByUserId,
-  findByProductId,
-  getUser,
 };
 
-function find() {
-  return db("order");
+async function getCart() {
+  try {
+    let cart = db("cart")
+      .select("id", "product_id", "user_id")
+      .where({ isPaid: 0 });
+    return cart;
+  } catch (err) {
+    return err;
+  }
 }
 
-function findByUserId(id) {
-  return db("order").where({ user_id: id });
+async function addOrder(item) {
+  try {
+    let order = db("order").insert(item);
+    return order;
+  } catch (err) {}
 }
 
-function findByProductId(id) {
-  return db("order").where({ product_id: id });
-}
-
-function addOrder(order) {
-  return db("order").insert(order);
-}
-
-function getUser(id) {
-  return db("order")
-    .join("product")
-    .join("user")
-    .select(
-      "order.id",
-      "user.id",
-      "user.username",
-      "user.email",
-      "user.firstName",
-      "user.lastName",
-      "user.houseNumber",
-      "user.streetName",
-      "user.city",
-      "user.zip",
-      "user.state",
-      "user.country",
-      "product.id",
-      "product.productName",
-      "product.brand",
-      "product.created_at",
-      "product.updated_at",
-      "product.shortDescription",
-      "product.image",
-      "order.paymentMethod",
-      "order.quantity",
-      "order.itemsPrice",
-      "order.shippingPrice",
-      "order.taxPrice",
-      "order.totalPrice"
-    )
-    .where({ user_id: id });
+async function getOrders(id) {
+  try {
+    return await db("order").join("cart").where({ cart_id: id, isPaid: 0 });
+  } catch (err) {
+    return err;
+  }
 }
