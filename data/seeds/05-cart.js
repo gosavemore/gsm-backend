@@ -7,9 +7,9 @@ exports.seed = function (knex) {
       return knex("cart").insert([
         {
           user_id: 1,
-          product_id: 1,
+          product_id: 2,
+          savedForLater: true,
           quantity: 5,
-          isPaid: false,
         },
       ]);
     });

@@ -2,7 +2,7 @@ exports.up = function (knex) {
   return knex.schema
     .createTable("category", (category) => {
       category.increments().primary();
-      category.string("name", 256);
+      category.string("category", 256);
     })
 
     .createTable("product", (product) => {
@@ -15,15 +15,6 @@ exports.up = function (knex) {
         .notNullable()
         .references("id")
         .inTable("category")
-        .onDelete("CASCADE")
-        .onUpdate("CASCADE");
-      // foreign key for tag
-      product
-        .integer("tag_id")
-        .unsigned()
-        .notNullable()
-        .references("id")
-        .inTable("tag")
         .onDelete("CASCADE")
         .onUpdate("CASCADE");
 

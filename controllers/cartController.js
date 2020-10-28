@@ -11,7 +11,7 @@ router.get("/", (req, res) => {
 
 router.get("/:id", (req, res) => {
   let userId = req.params.id;
-  CartModel.getUser(userId)
+  CartModel.findByCartId(userId)
     .then((orders) => {
       res.status(200).json(orders);
     })
@@ -24,6 +24,14 @@ router.post("/", (req, res) => {
     .then((order) => {
       res.status(200).json({ message: `Order is added ${order}` });
     })
+    .catch((err) => res.status(400).json({ err: err.message }));
+});
+
+router.put("/:id", (req, res) => {
+  let { id } = req.params;
+  let data = req.body;
+  CartModel.editCart(id, data)
+    .then((cart) => res.status(200).json({ cart }))
     .catch((err) => res.status(400).json({ err: err.message }));
 });
 
