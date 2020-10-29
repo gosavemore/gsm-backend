@@ -19,24 +19,27 @@ function getTag() {
 }
 
 function getProduct() {
-  return db("product")
-    .join("tag", "tag.product_id", "product.id")
-    .join("category", "category.id", "product.category_id")
-    .select(
-      "product.id",
-      "product.productName",
-      "product.image",
-      "product.brand",
-      "product.price",
-      "product.shortDescription",
-      "product.description",
-      "product.ratings",
-      "product.stock",
-      "product.created_at",
-      "product.updated_at",
-      "tag.tag",
-      "category.category"
-    );
+  return (
+    db("product")
+      // .join("tag")
+      // .join("category")
+      .select(
+        // "product.id",
+        // "product.productName",
+        // "product.image",
+        // "product.brand",
+        // "product.price",
+        // "product.shortDescription",
+        // "product.description",
+        // "product.ratings",
+        // "product.stock",
+        // "product.created_at",
+        // "product.updated_at",
+        // "tag.tag",
+        // "category.category"
+        "*"
+      )
+  );
 }
 
 function getProductById(id) {
