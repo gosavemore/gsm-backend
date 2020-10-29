@@ -8,8 +8,8 @@ const jwt = require("jsonwebtoken");
 router.post("/login", async (req, res) => {
   try {
     let { username, password } = req.body;
-    let user = await adminModel.findUser({ username });
 
+    let user = await adminModel.findUserByUsername(username);
     if (user.length === 0) {
       return res.status(404).json({ message: "Username not found!" });
     }
