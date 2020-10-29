@@ -26,6 +26,10 @@ router.post("/login", async (req, res) => {
       res.status(200).json({
         message: `Welcome to Go Save More! ${user.username}`,
         id: user.id,
+        email: user.email,
+        firstName: user.firstName,
+        lastName: user.lastName,
+        isAdmin: user.isAdmin,
         token,
       });
     }
