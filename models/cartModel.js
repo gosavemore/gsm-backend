@@ -13,7 +13,10 @@ function find() {
 }
 
 function findByCartId(id) {
-  return db("cart").where({ user_id: id });
+  return db("cart")
+    .join("product", "cart.product_id", "product.id")
+    .join("user")
+    .where({ user_id: id });
 }
 
 function addCart(cart) {
@@ -24,6 +27,7 @@ function editCart(id, data) {
   return db("cart").where({ id }).update(data);
 }
 
+// QUERY IN TABLES
 function getUser(id) {
   return db("cart")
     .join("product")
