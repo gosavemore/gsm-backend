@@ -12,6 +12,7 @@ function find() {
   return db("cart");
 }
 
+// find cart it
 function findByCartId(id) {
   return db("cart")
     .join("product", "cart.product_id", "product.id")
