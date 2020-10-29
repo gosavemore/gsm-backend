@@ -3,25 +3,25 @@ const db = require("../data/db-config");
 module.exports = {
   addCart,
   find,
-  findByUserId,
-  findByProductId,
+  findByCartId,
   getUser,
+  editCart,
 };
 
 function find() {
   return db("cart");
 }
 
-function findByUserId(id) {
+function findByCartId(id) {
   return db("cart").where({ user_id: id });
-}
-
-function findByProductId(id) {
-  return db("cart").where({ product_id: id });
 }
 
 function addCart(cart) {
   return db("cart").insert(cart);
+}
+
+function editCart(id, data) {
+  return db("cart").where({ id }).update(data);
 }
 
 function getUser(id) {

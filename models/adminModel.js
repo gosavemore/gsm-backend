@@ -7,11 +7,31 @@ module.exports = {
 };
 
 function getUsers() {
-  return db("user"); //.select("id", "username", "firstName", "lastName")
+  return db("user");
 }
 
-function findUser(username) {
-  return db("user").where(username);
+function findUser(id) {
+  return db("user")
+    .join("address", "user.id", "address.user_id")
+    .select(
+      "username",
+      "email",
+      "password",
+      "firstName",
+      "lastName",
+      "isAdmin",
+      "created_at",
+      "updated_at",
+      "user_id",
+      "houseNumber",
+      "streetName",
+      "city",
+      "zip",
+      "state",
+      "country",
+      "phone"
+    )
+    .where({ user_id: id });
 }
 
 function addUser(data) {

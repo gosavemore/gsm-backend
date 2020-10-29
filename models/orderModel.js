@@ -25,7 +25,10 @@ async function addOrder(item) {
 
 async function getOrders(id) {
   try {
-    return await db("order").join("cart").where({ cart_id: id, isPaid: 0 });
+    return await db("order")
+      .join("cart", "order.cart_id", "cart.id")
+      .join("product", "product.id", "=", "cart.product_id")
+      .where({ cart_id: id, isPaid: 0 });
   } catch (err) {
     return err;
   }

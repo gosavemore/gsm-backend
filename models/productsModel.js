@@ -1,23 +1,45 @@
 const db = require("../data/db-config");
 
 module.exports = {
-  find,
-  findByName,
-  findById,
+  getProductById,
+  getProduct,
+  getCategory,
+  getTag,
   addProduct,
   deleteProduct,
   editProduct,
 };
 
-function find() {
-  return db("product");
+function getCategory() {
+  return db("category").select("id", "name");
 }
 
-function findByName(productName) {
-  return db("product").where({ productName }).first();
+function getTag() {
+  return db("tag");
 }
 
-function findById(id) {
+function getProduct() {
+  return db("product")
+    .join("tag", "tag.product_id", "product.id")
+    .join("category", "category.id", "product.category_id")
+    .select(
+      "product.id",
+      "product.productName",
+      "product.image",
+      "product.brand",
+      "product.price",
+      "product.shortDescription",
+      "product.description",
+      "product.ratings",
+      "product.stock",
+      "product.created_at",
+      "product.updated_at",
+      "tag.tag",
+      "category.category"
+    );
+}
+
+function getProductById(id) {
   return db("product").where(id).first();
 }
 
@@ -25,8 +47,8 @@ function addProduct(newProduct) {
   return db("product").insert(newProduct);
 }
 
-function editProduct(product, data) {
-  return db("product").where(product).update(data); // TBC
+function editProduct(id, data) {
+  return db("id").where(id).update(data); // TBC
 }
 
 function deleteProduct(product) {
