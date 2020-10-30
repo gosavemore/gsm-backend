@@ -11,7 +11,7 @@ module.exports = {
 };
 
 function getCategory() {
-  return db("category").select("id", "name");
+  return db("category").select("id", "category");
 }
 
 function getTag() {
