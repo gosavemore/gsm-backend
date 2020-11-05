@@ -9,7 +9,7 @@ router.post("/login", async (req, res) => {
   try {
     let { username, password } = req.body;
 
-    let user = await adminModel.findUserByUsername(username);
+    let user = await adminModel.findByUsername(username);
     if (user.length === 0) {
       return res.status(404).json({ message: "Username not found!" });
     }
@@ -24,6 +24,10 @@ router.post("/login", async (req, res) => {
       res.status(200).json({
         message: `Welcome to Go Save More! ${user.username}`,
         id: user.id,
+        email: user.email,
+        firstName: user.firstName,
+        lastName: user.lastName,
+        isAdmin: user.isAdmin,
         token,
       });
     }

@@ -3,7 +3,7 @@ const db = require("../data/db-config");
 module.exports = {
   getUsers,
   findUserByID,
-  findUserByUsername,
+  findByUsername,
   addUser,
 };
 
@@ -35,7 +35,7 @@ function findUserByID(id) {
     .where({ user_id: id });
 }
 
-function findUserByUsername(username) {
+function findByUsername(username) {
   return db("user").where({ username });
 }
 
