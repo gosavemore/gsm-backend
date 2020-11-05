@@ -22,7 +22,7 @@ router.post("/", (req, res) => {
   const saveItem = req.body;
   CartModel.addCart(saveItem)
     .then((item) => {
-      res.status(200).json({ message: `Item is saved: ${item}` });
+      res.status(200).json({ item });
     })
     .catch((err) => res.status(400).json({ err: err.message }));
 });
