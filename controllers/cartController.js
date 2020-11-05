@@ -2,7 +2,7 @@ const router = require("express").Router();
 const CartModel = require("../models/cartModel");
 
 router.get("/", (req, res) => {
-  CartModel.find()
+  CartModel.findCart()
     .then((orders) => {
       res.status(200).json(orders);
     })
@@ -18,13 +18,17 @@ router.get("/:id", (req, res) => {
     .catch((err) => res.status(400).json({ message: err.message }));
 });
 
-router.post("/", (req, res) => {
-  const saveItem = req.body;
-  CartModel.addCart(saveItem)
-    .then((item) => {
-      res.status(200).json({ item });
-    })
-    .catch((err) => res.status(400).json({ err: err.message }));
+router.post("/", async (req, res) => {
+  try {
+    let data = req.body;
+    let saveItem = await CartModel.addCart(data);
+    console.log("checking on the save item", saveItem);
+
+    let product = await CartModel.findByCartProductId(data.product_id);
+    res.status(200).json(product);
+  } catch (err) {
+    res.status(400).json({ err: err.message });
+  }
 });
 
 router.put("/:id", (req, res) => {

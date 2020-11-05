@@ -2,21 +2,27 @@ const db = require("../data/db-config");
 
 module.exports = {
   addCart,
-  find,
-  findByCartId,
+  findCart,
+  findByCartUserId,
+  findByCartProductId,
   getUser,
   editCart,
 };
 
-function find() {
+function findCart() {
   return db("cart");
 }
 
-function findByCartId(id) {
+function findByCartUserId(id) {
   return db("cart")
     .join("product", "cart.product_id", "product.id")
     .join("user")
     .where({ user_id: id });
+}
+function findByCartProductId(id) {
+  return db("cart")
+    .join("product", "cart.product_id", "product.id")
+    .where({ product_id: id });
 }
 
 function addCart(cart) {
