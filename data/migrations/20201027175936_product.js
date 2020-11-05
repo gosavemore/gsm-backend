@@ -26,6 +26,7 @@ exports.up = function (knex) {
       product.text("description", 1024).notNullable();
       product.integer("ratings").notNullable();
       product.integer("stock").notNullable();
+
       product.timestamps(true, true);
     })
     .createTable("tag", (tag) => {

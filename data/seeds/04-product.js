@@ -385,7 +385,7 @@ exports.seed = function (knex) {
     {
       category_id: 5,
       productName: "Wine La Vielle Ferme Cote Du",
-      image: "https://picsum.photos/300/200?random=30",
+      image: "https://picsum.photos/300/200?random=30s",
       price: 521,
       shortDescription:
         "Nam ultrices, libero non mattis pulvinar, nulla pede ullamcorper augue, a suscipit nulla elit ac nulla. Sed vel enim sit amet nunc viverra dapibus. Nulla suscipit ligula in lacus.",
