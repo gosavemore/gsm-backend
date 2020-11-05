@@ -19,10 +19,10 @@ router.get("/:id", (req, res) => {
 });
 
 router.post("/", (req, res) => {
-  const order = req.body;
-  CartModel.addCart(order)
-    .then((order) => {
-      res.status(200).json({ message: `Order is added ${order}` });
+  const saveItem = req.body;
+  CartModel.addCart(saveItem)
+    .then((item) => {
+      res.status(200).json({ item });
     })
     .catch((err) => res.status(400).json({ err: err.message }));
 });
