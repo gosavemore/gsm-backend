@@ -47,6 +47,7 @@ function findByUserId(id) {
       "product.updated_at",
       "product.shortDescription",
       "product.image",
+      "product.price",
       "cart.quantity"
     )
     .where({ user_id: id });
