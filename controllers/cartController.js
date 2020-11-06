@@ -11,7 +11,7 @@ router.get("/", (req, res) => {
 
 router.get("/:id", (req, res) => {
   let userId = req.params.id;
-  CartModel.findByCartId(userId)
+  CartModel.findByUserId(userId)
     .then((orders) => {
       res.status(200).json(orders);
     })
@@ -24,8 +24,7 @@ router.post("/", async (req, res) => {
     let saveItem = await CartModel.addCart(data);
     console.log("checking on the save item", saveItem);
 
-    let product = await CartModel.findByCartProductId(data.product_id);
-    res.status(200).json(product);
+    res.status(200).json(saveItem);
   } catch (err) {
     res.status(400).json({ err: err.message });
   }
