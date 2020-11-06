@@ -5,7 +5,7 @@ module.exports = {
   findCart,
   findByCartUserId,
   findByCartProductId,
-  getUser,
+  findByUserId,
   editCart,
 };
 
@@ -33,23 +33,17 @@ function editCart(id, data) {
   return db("cart").where({ id }).update(data);
 }
 
-function getUser(id) {
+function findByUserId(id) {
   return db("cart")
-    .join("product")
-    .join("user")
+    .join("product", "product.id", "cart.product_id")
+    .join("user", "user.id", "cart.user_id")
     .select(
-      "cart.id",
-      "user.id",
+      "cart.user_id",
+      "cart.product_id",
       "user.username",
       "user.email",
       "user.firstName",
       "user.lastName",
-      "user.houseNumber",
-      "user.streetName",
-      "user.city",
-      "user.zip",
-      "user.state",
-      "user.country",
       "product.id",
       "product.productName",
       "product.brand",
@@ -57,7 +51,6 @@ function getUser(id) {
       "product.updated_at",
       "product.shortDescription",
       "product.image",
-      "cart.isPaid",
       "cart.quantity"
     )
     .where({ user_id: id });
