@@ -40,10 +40,6 @@ function findByUserId(id) {
     .select(
       "cart.user_id",
       "cart.product_id",
-      "user.username",
-      "user.email",
-      "user.firstName",
-      "user.lastName",
       "product.id",
       "product.productName",
       "product.brand",
