@@ -35,30 +35,23 @@ function editCart(id, data) {
 
 function getUser(id) {
   return db("cart")
-    .join("product")
-    .join("user")
+    .join("product", "cart.product_id", "cart.id")
+    .join("user", "cart.user_id", "cart.id")
     .select(
       "cart.id",
-      "user.id",
+      "cart.user_id",
+      "cart.product_id",
+      "cart.quantity",
       "user.username",
       "user.email",
       "user.firstName",
       "user.lastName",
-      "user.houseNumber",
-      "user.streetName",
-      "user.city",
-      "user.zip",
-      "user.state",
-      "user.country",
-      "product.id",
       "product.productName",
       "product.brand",
       "product.created_at",
       "product.updated_at",
       "product.shortDescription",
-      "product.image",
-      "cart.isPaid",
-      "cart.quantity"
+      "product.image"
     )
     .where({ user_id: id });
 }

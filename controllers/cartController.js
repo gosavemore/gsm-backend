@@ -11,7 +11,7 @@ router.get("/", (req, res) => {
 
 router.get("/:id", (req, res) => {
   let userId = req.params.id;
-  CartModel.findByCartId(userId)
+  CartModel.getUser(userId)
     .then((orders) => {
       res.status(200).json(orders);
     })
