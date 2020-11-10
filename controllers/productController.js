@@ -1,66 +1,76 @@
-const router = require("express").Router();
-const ProductModel = require("../models/productsModel");
+const router = require('express').Router()
+const ProductModel = require('../models/productsModel')
 
 // category route
-router.get("/category", (req, res) => {
+router.get('/category', (req, res) => {
   ProductModel.getCategory()
     .then((category) => res.status(200).json(category))
-    .catch((err) => res.status(500).json({ err: err.message }));
-});
+    .catch((err) => res.status(500).json({ err: err.message }))
+})
 
 // tag route
-router.get("/tag", (req, res) => {
+router.get('/tag', (req, res) => {
   ProductModel.getTag()
     .then((tag) => res.status(200).json(tag))
-    .catch((err) => res.status(400).json({ err: err.message }));
-});
+    .catch((err) => res.status(400).json({ err: err.message }))
+})
 
 // product route
-router.get("/", (req, res) => {
+router.get('/', (req, res) => {
   ProductModel.getProduct()
     .then((product) => res.status(200).json(product))
-    .catch((err) => res.status(500).json({ err: err.message }));
-});
+    .catch((err) => res.status(500).json({ err: err.message }))
+})
 
-router.get("/:id", (req, res) => {
-  let id = req.params;
+router.get('/:id', (req, res) => {
+  let id = req.params
   ProductModel.getProductById(id)
     .then((product) => {
-      res.status(200).json(product);
+      res.status(200).json(product)
     })
-    .catch((err) => res.status(500).json({ err: err.message }));
-});
+    .catch((err) => res.status(500).json({ err: err.message }))
+})
 
-router.post("/", (req, res) => {
-  const data = req.body;
+router.get('/:productName', (req, res) => {
+  let productName = req.params
+  console.log('productName===>', productName)
+  ProductModel.getProductByName(productName.toLowerCase())
+    .then((product) => {
+      res.status(200).json(product)
+    })
+    .catch((err) => res.status(500).json({ err: err.message }))
+})
+
+router.post('/', (req, res) => {
+  const data = req.body
 
   ProductModel.addProduct(data)
     .then((product) => res.status(200).json(product))
-    .catch((err) => res.status(500).json({ err: err.message }));
-});
+    .catch((err) => res.status(500).json({ err: err.message }))
+})
 
-router.put("/:id", async (req, res) => {
+router.put('/:id', async (req, res) => {
   try {
-    let id = req.params;
-    const changes = req.body;
+    let id = req.params
+    const changes = req.body
 
-    let searchResult = await ProductModel.findById(id);
+    let searchResult = await ProductModel.findById(id)
     if (!searchResult) {
-      res.status(404).json({ message: "That product does not exist." });
+      res.status(404).json({ message: 'That product does not exist.' })
     } else {
-      const updated = await ProductModel.editProduct(searchResult, changes);
-      res.status(200).json({ updated });
+      const updated = await ProductModel.editProduct(searchResult, changes)
+      res.status(200).json({ updated })
     }
   } catch (err) {
-    res.status(400).json(err);
+    res.status(400).json(err)
   }
-});
+})
 
-router.delete("/:id", (req, res) => {
-  const id = req.params;
+router.delete('/:id', (req, res) => {
+  const id = req.params
   ProductModel.deleteProduct(id)
-    .then(() => res.status(200).json({ msg: "Product deleted" }))
-    .catch((err) => res.status(500).json({ err: err.message }));
-});
+    .then(() => res.status(200).json({ msg: 'Product deleted' }))
+    .catch((err) => res.status(500).json({ err: err.message }))
+})
 
-module.exports = router;
+module.exports = router
