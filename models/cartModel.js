@@ -2,21 +2,27 @@ const db = require("../data/db-config");
 
 module.exports = {
   addCart,
-  find,
-  findByCartId,
-  getUser,
+  findCart,
+  findByCartUserId,
+  findByCartProductId,
+  findByUserId,
   editCart,
 };
 
-function find() {
+function findCart() {
   return db("cart");
 }
 
-function findByCartId(id) {
+function findByCartUserId(id) {
   return db("cart")
     .join("product", "cart.product_id", "product.id")
     .join("user")
     .where({ user_id: id });
+}
+function findByCartProductId(id) {
+  return db("cart")
+    .join("product", "cart.product_id", "product.id")
+    .where({ product_id: id });
 }
 
 function addCart(cart) {
@@ -27,31 +33,23 @@ function editCart(id, data) {
   return db("cart").where({ id }).update(data);
 }
 
-function getUser(id) {
+function findByUserId(id) {
   return db("cart")
-    .join("product")
-    .join("user")
+    .join("product", "product.id", "cart.product_id")
+    .join("user", "user.id", "cart.user_id")
     .select(
-      "cart.id",
-      "user.id",
-      "user.username",
-      "user.email",
-      "user.firstName",
-      "user.lastName",
-      "user.houseNumber",
-      "user.streetName",
-      "user.city",
-      "user.zip",
-      "user.state",
-      "user.country",
+      "cart.user_id",
+      "cart.product_id",
       "product.id",
       "product.productName",
+      "product.category_id",
       "product.brand",
       "product.created_at",
       "product.updated_at",
       "product.shortDescription",
       "product.image",
-      "cart.isPaid",
+      "product.price",
+      "product.ratings",
       "cart.quantity"
     )
     .where({ user_id: id });

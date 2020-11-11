@@ -2,7 +2,7 @@ exports.up = function (knex) {
   return knex.schema
     .createTable("category", (category) => {
       category.increments().primary();
-      category.string("category", 256);
+      category.text("category");
     })
 
     .createTable("product", (product) => {
@@ -18,14 +18,15 @@ exports.up = function (knex) {
         .onDelete("CASCADE")
         .onUpdate("CASCADE");
 
-      product.string("productName", 256).notNullable().unique();
-      product.string("image", 256).notNullable();
-      product.string("brand", 256).notNullable();
+      product.text("productName").notNullable().unique();
+      product.text("image").notNullable();
+      product.text("brand").notNullable();
       product.integer("price").notNullable();
-      product.string("shortDescription", 512).notNullable();
-      product.string("description", 1024).notNullable();
+      product.text("shortDescription", 512).notNullable();
+      product.text("description", 1024).notNullable();
       product.integer("ratings").notNullable();
       product.integer("stock").notNullable();
+
       product.timestamps(true, true);
     })
     .createTable("tag", (tag) => {

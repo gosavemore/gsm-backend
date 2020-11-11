@@ -2,7 +2,7 @@ const db = require("../data/db-config");
 
 module.exports = {
   getUsers,
-  findUser,
+  findUserByID,
   findByUsername,
   addUser,
 };
@@ -11,7 +11,7 @@ function getUsers() {
   return db("user");
 }
 
-function findUser(id) {
+function findUserByID(id) {
   return db("user")
     .join("address", "user.id", "address.user_id")
     .select(
@@ -44,7 +44,6 @@ function addUser(data) {
     .insert(data, "id")
     .then((ids) => {
       const [id] = ids;
-      console.log("this is the id", id);
       return findUserId(id).select("id", "username", "firstName", "lastName");
     });
 }

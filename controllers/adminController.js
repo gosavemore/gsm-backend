@@ -16,7 +16,7 @@ router.get("/:id", (req, res) => {
   let { id } = req.params;
   AdminModel.findUser(id)
     .then((profile) => res.status(200).json({ profile }))
-    .catch((err) => res.status(400).json(err.message));
+    .catch((err) => res.status(400).json({ err: err.message }));
 });
 
 module.exports = router;
