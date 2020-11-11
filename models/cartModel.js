@@ -42,12 +42,14 @@ function findByUserId(id) {
       "cart.product_id",
       "product.id",
       "product.productName",
+      "product.category_id",
       "product.brand",
       "product.created_at",
       "product.updated_at",
       "product.shortDescription",
       "product.image",
       "product.price",
+      "product.ratings",
       "cart.quantity"
     )
     .where({ user_id: id });
