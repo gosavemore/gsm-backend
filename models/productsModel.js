@@ -1,26 +1,27 @@
-const db = require("../data/db-config");
+const db = require('../data/db-config')
 
 module.exports = {
   getProductById,
+  getProductByName,
   getProduct,
   getCategory,
   getTag,
   addProduct,
   deleteProduct,
   editProduct,
-};
+}
 
 function getCategory() {
-  return db("category").select("id", "category");
+  return db('category').select('id', 'name')
 }
 
 function getTag() {
-  return db("tag");
+  return db('tag')
 }
 
 function getProduct() {
   return (
-    db("product")
+    db('product')
       // .join("tag")
       // .join("category")
       .select(
@@ -37,23 +38,27 @@ function getProduct() {
         // "product.updated_at",
         // "tag.tag",
         // "category.category"
-        "*"
+        '*'
       )
-  );
+  )
 }
 
 function getProductById(id) {
-  return db("product").where(id).first();
+  return db('product').where(id).first()
+}
+
+function getProductByName(productName) {
+  return db('product').where(productName).first()
 }
 
 function addProduct(newProduct) {
-  return db("product").insert(newProduct);
+  return db('product').insert(newProduct)
 }
 
 function editProduct(id, data) {
-  return db("id").where(id).update(data); // TBC
+  return db('id').where(id).update(data) // TBC
 }
 
 function deleteProduct(product) {
-  return db("product").where(product).del(); // where id=id
+  return db('product').where(product).del() // where id=id
 }
