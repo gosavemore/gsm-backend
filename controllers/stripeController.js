@@ -1,7 +1,9 @@
 import Stripe from 'stripe'
 const router = require('express').Router()
 
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY)
+const stripe = new Stripe(`${process.env.STRIPE_SECRET_KEY}`)
+
+
 
 router.post('/', async (req, res) => {
   try {
